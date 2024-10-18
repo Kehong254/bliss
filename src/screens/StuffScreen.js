@@ -20,8 +20,7 @@ const questions = [
 const StuffScreen = () => {
   const {
     currentQuestion,
-    handleNext,
-    handlePrevious,
+    // handlePrevious,
     handleResponseSubmit,
     currentQuestionIndex,
     responseSubmitted,
@@ -46,8 +45,7 @@ const StuffScreen = () => {
       </View>
       <QuestionCard
         questionImage={currentQuestion.image}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
+        // onPrevious={handlePrevious}
         cardId={currentQuestion.id}
         onAnswerSubmit={handleResponseSubmit}
         initialResponse={responseSubmitted ? currentQuestionIndex : null}

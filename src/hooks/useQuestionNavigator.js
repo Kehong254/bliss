@@ -7,35 +7,22 @@ const useQuestionNavigator = (questions) => {
   const [responseSubmitted, setResponseSubmitted] = useState(false);
   const [responses, setResponses] = useState(Array(questions.length).fill(null));
 
-  const handleNext = () => {
-    if (currentQuestionIndex === questions.length - 1) {
-      // Last question, cannot proceed further
-      return;
-    }
-
-    if (responseSubmitted || responses[currentQuestionIndex] !== null) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setResponseSubmitted(false);
-    } else {
-      Alert.alert(
-        'Error',
-        'Response not submitted. Please submit your response before proceeding.',
-        [{ text: 'OK' }]
-      );
-    }
-  };
-
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
-    }
-  };
+  // const handlePrevious = () => {
+  //   if (currentQuestionIndex > 0) {
+  //     setCurrentQuestionIndex((prevIndex) => prevIndex - 1);
+  //   }
+  // };
 
   const handleResponseSubmit = (response) => {
     const updatedResponses = [...responses];
     updatedResponses[currentQuestionIndex] = response;
     setResponses(updatedResponses);
     setResponseSubmitted(true);
+
+    // 自动跳转到下一个问题
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
+    }
     
     // Show a success toast only after a response is submitted
     Toast.show({
@@ -51,8 +38,7 @@ const useQuestionNavigator = (questions) => {
   return {
     currentQuestion,
     currentQuestionIndex,
-    handleNext,
-    handlePrevious,
+    // handlePrevious,
     handleResponseSubmit,
     responseSubmitted,
     responses,

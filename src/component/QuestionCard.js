@@ -115,18 +115,12 @@ const QuestionCard = ({ questionImage,  onNext, cardId, onAnswerSubmit,onPreviou
           onBlur={handleInputBlur}
         />
         <View style={styles.buttonContainer}>
-          {/* Previous按钮 */}
-          <TouchableOpacity style={styles.previousButton} onPress={onPrevious}>
-            <Text style={styles.buttonText}>Previous</Text>
-          </TouchableOpacity>
+
           {/* Submit按钮 */}
           <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
             <Text style={styles.buttonText}>Submit</Text>
           </TouchableOpacity>
-          {/* Next按钮 */}
-          <TouchableOpacity style={styles.nextButton} onPress={onNext} disabled={!isAnswerSubmitted}>
-            <Text style={[styles.buttonText, { color: isAnswerSubmitted ? '#fff' : '#aaa' }]}>Next</Text>
-          </TouchableOpacity>
+
         </View >
             {responsesList.map((item, index) => (
               <View key={index} style={styles.savedResponseContainer}>
