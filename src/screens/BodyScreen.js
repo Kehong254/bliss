@@ -1,6 +1,6 @@
 import React from 'react';
-import { View, Text } from 'react-native';
-import ProgressBar from 'react-native-progress/Bar';
+import { View, Text, ActivityIndicator } from 'react-native';
+import ProgressBar from 'react-native-progress/Bar'; // 导入进度条组件
 import QuestionCard from '../component/QuestionCard';
 import useQuestionNavigator from '../hooks/useQuestionNavigator';
 
@@ -21,14 +21,23 @@ const questions = [
 const BodyScreen = () => {
   const {
     currentQuestion,
-    // handlePrevious,
-    handleResponseSubmit,
     currentQuestionIndex,
+    handleResponseSubmit,
     responseSubmitted,
-  } = useQuestionNavigator(questions);
+    isLoading,
+  } = useQuestionNavigator(questions, 'body_question_index'); // 为 BodyScreen 指定存储键
 
   // Calculate progress as a value between 0 and 1
   const progress = (currentQuestionIndex + 1) / questions.length;
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#3498db" />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -46,7 +55,6 @@ const BodyScreen = () => {
       </View>
       <QuestionCard
         questionImage={currentQuestion.image}
-        // onPrevious={handlePrevious}
         cardId={currentQuestion.id}
         onAnswerSubmit={handleResponseSubmit}
         initialResponse={responseSubmitted ? currentQuestionIndex : null}

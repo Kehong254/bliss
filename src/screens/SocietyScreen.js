@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import ProgressBar from 'react-native-progress/Bar'; // 导入进度条组件
 import QuestionCard from '../component/QuestionCard';
 import useQuestionNavigator from '../hooks/useQuestionNavigator';
@@ -15,20 +15,29 @@ const questions = [
   { id: 'q4-8', image: require('../img/society/society8.jpeg') },
   { id: 'q4-9', image: require('../img/society/society9.jpeg') },
   { id: 'q4-10', image: require('../img/society/society10.jpeg') },
-  // Add more questions
+  // Add more questions if needed
 ];
 
 const SocietyScreen = () => {
   const {
     currentQuestion,
-    // handlePrevious,
     handleResponseSubmit,
     currentQuestionIndex,
     responseSubmitted,
-  } = useQuestionNavigator(questions);
+    isLoading,
+  } = useQuestionNavigator(questions, 'society_question_index'); // 为 SocietyScreen 指定存储键
 
   // Calculate progress as a value between 0 and 1
   const progress = (currentQuestionIndex + 1) / questions.length;
+
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" color="#3498db" />
+        <Text>Loading...</Text>
+      </View>
+    );
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -46,7 +55,6 @@ const SocietyScreen = () => {
       </View>
       <QuestionCard
         questionImage={currentQuestion.image}
-        // onPrevious={handlePrevious}
         cardId={currentQuestion.id}
         onAnswerSubmit={handleResponseSubmit}
         initialResponse={responseSubmitted ? currentQuestionIndex : null}
