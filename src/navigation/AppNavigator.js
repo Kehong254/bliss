@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { TouchableOpacity,Text,View  } from 'react-native';
+import { TouchableOpacity, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import HomeScreen from '../screens/HomeScreen';
 import BodyScreen from '../screens/BodyScreen';
@@ -14,7 +14,18 @@ const Stack = createStackNavigator();
 
 const AppNavigator = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#3498db', // 统一的背景色
+        },
+        headerTintColor: '#fff', // 统一的标题文字颜色
+        headerTitleStyle: {
+          fontWeight: 'bold', // 统一的标题字体
+        },
+        headerBackTitleVisible: false, // 隐藏返回按钮的文字
+      }}
+    >
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -22,8 +33,8 @@ const AppNavigator = () => {
           headerRight: () => (
             <TouchableOpacity onPress={() => navigation.navigate('UserManual')}>
               <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                <Text style={{ fontSize: 15, color: 'black' }}>Help</Text>
-                <Ionicons name="information-circle-outline" size={24} color="black" style={{ marginLeft: 5 }} />
+                <Text style={{ fontSize: 15, color: 'white' }}>Help</Text>
+                <Ionicons name="information-circle-outline" size={24} color="white" style={{ marginLeft: 5 }} />
               </View>
             </TouchableOpacity>
           ),
@@ -35,7 +46,6 @@ const AppNavigator = () => {
       <Stack.Screen name="Society" component={SocietyScreen} />
       <Stack.Screen name="Stuff" component={StuffScreen} />
       <Stack.Screen name="UserManual" component={UserManualScreen} />
-      {/* Add screens for each theme (Body, Life, Identity, Society, Stuff) here */}
     </Stack.Navigator>
   );
 };
