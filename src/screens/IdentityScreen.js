@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { View, Alert } from 'react-native';
+import React from 'react';
+import { View } from 'react-native';
 import QuestionCard from '../component/QuestionCard';
+import useQuestionNavigator from '../hooks/useQuestionNavigator';
 
 const questions = [
   { id: 'q3-1', image: require('../img/identity/identity1.jpeg') },
@@ -17,56 +18,27 @@ const questions = [
 
 ];
 
-const IdentityScreen = ({ navigation }) => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [responseSubmitted, setResponseSubmitted] = useState(false);
-  const [responses, setResponses] = useState(Array(questions.length).fill(null));
-
-  const handleNext = () => {
-    if (currentQuestionIndex === questions.length - 1) {
-      // This is the last question, do not proceed
-      return;
-    }
-
-    if (responseSubmitted || responses[currentQuestionIndex] !== null) {
-      setCurrentQuestionIndex((prevIndex) => prevIndex + 1);
-      setResponseSubmitted(false);
-    } else {
-      Alert.alert(
-        'Error',
-        'Response not submitted. Please submit your response before proceeding.',
-        [{ text: 'OK' }]
-      );
-    }
-  };
-  
-  const handlePrevious = () => {
-    if (currentQuestionIndex > 0) {
-      setCurrentQuestionIndex(prevIndex => prevIndex - 1);
-    }
-  };
-  
-  const handleResponseSubmit = (response) => {
-    const updatedResponses = [...responses];
-    updatedResponses[currentQuestionIndex] = response;
-    setResponses(updatedResponses);
-    setResponseSubmitted(true);
-  };
-
-  // Ensure that questions[currentQuestionIndex] is defined before accessing its text property
-  const currentQuestion = questions[currentQuestionIndex] || { id: '', text: '' };
+const IdentityScreen = () => {
+  const {
+    currentQuestion,
+    handleNext,
+    handlePrevious,
+    handleResponseSubmit,
+    currentQuestionIndex,
+    responseSubmitted,
+  } = useQuestionNavigator(questions);
 
   return (
-      <QuestionCard
-        questionImage={currentQuestion.image}
-        onPrevious={handlePrevious}
-        onNext={handleNext}
-        cardId={currentQuestion.id}
-        onAnswerSubmit={handleResponseSubmit} // Pass the function to handle answer submission
-        initialResponse={responses[currentQuestionIndex]}
-        isLastQuestion={currentQuestionIndex === questions.length - 1} // Pass a flag indicating if this is the last question
-        cardBackgroundColor="#f18538" // Pick a suitable screen color
-      />
+    <QuestionCard
+      questionImage={currentQuestion.image}
+      onPrevious={handlePrevious}
+      onNext={handleNext}
+      cardId={currentQuestion.id}
+      onAnswerSubmit={handleResponseSubmit}
+      initialResponse={responseSubmitted ? currentQuestionIndex : null}
+      isLastQuestion={currentQuestionIndex === questions.length - 1}
+      cardBackgroundColor="#fed905"
+    />
   );
 };
 
