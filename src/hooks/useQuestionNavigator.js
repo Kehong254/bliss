@@ -1,6 +1,6 @@
-// hooks/useQuestionNavigator.js
 import { useState } from 'react';
 import { Alert } from 'react-native';
+import Toast from 'react-native-toast-message';
 
 const useQuestionNavigator = (questions) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -36,6 +36,14 @@ const useQuestionNavigator = (questions) => {
     updatedResponses[currentQuestionIndex] = response;
     setResponses(updatedResponses);
     setResponseSubmitted(true);
+    
+    // Show a success toast only after a response is submitted
+    Toast.show({
+      type: 'success',
+      text1: 'Response Submitted',
+      text2: 'Your response has been saved successfully!',
+      position: 'bottom',
+    });
   };
 
   const currentQuestion = questions[currentQuestionIndex] || {};
@@ -52,3 +60,4 @@ const useQuestionNavigator = (questions) => {
 };
 
 export default useQuestionNavigator;
+
