@@ -27,7 +27,26 @@ const HomeScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>BLISS BUSKER FUN CARD</Text>
+      <Text style={styles.header}>
+        <Text style={{ color: '#ff5a5f' }}>B</Text>
+        <Text style={{ color: '#ffa07a' }}>L</Text>
+        <Text style={{ color: '#fed905' }}>I</Text>
+        <Text style={{ color: '#f9b026' }}>S</Text>
+        <Text style={{ color: '#f18538' }}>S</Text>
+        <Text style={{ color: '#ec604f' }}> </Text>
+        <Text style={{ color: '#e83c62' }}>B</Text>
+        <Text style={{ color: '#fed905' }}>U</Text>
+        <Text style={{ color: '#f9b026' }}>S</Text>
+        <Text style={{ color: '#ffa07a' }}>K</Text>
+        <Text style={{ color: '#ff5a5f' }}>E</Text>
+        <Text style={{ color: '#fed905' }}>R</Text>
+        <Text style={{ color: '#f9b026' }}> </Text>
+        <Text style={{ color: '#f18538' }}>Q</Text>
+        <Text style={{ color: '#ec604f' }}>'</Text>
+        <Text style={{ color: '#e83c62' }}>S</Text>
+
+      </Text>
+
       {themes.map((theme, index) => (
         <View key={index} style={styles.buttonContainer}>
           <Circle color={theme.color} text={theme.name} />
@@ -48,13 +67,15 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#f27437',
+    backgroundColor: '#9B59B6', //#DCDCDC, #F0F0F0//
   },
   header: {
     fontSize: 35,
     fontWeight: 'bold',
     marginBottom: 25,
-    fontFamily: 'san-serif'
+    fontFamily: 'cursive',
+    textAlign: 'center',
+
   },
   buttonContainer: {
     flexDirection: 'row',
